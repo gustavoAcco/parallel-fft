@@ -4,7 +4,7 @@ include(CMakeDependentOption)
 include(CheckCXXCompilerFlag)
 
 
-macro(myproject_supports_sanitizers)
+macro(parallel_fft_supports_sanitizers)
   if((CMAKE_CXX_COMPILER_ID MATCHES ".*Clang.*" OR CMAKE_CXX_COMPILER_ID MATCHES ".*GNU.*") AND NOT WIN32)
     set(SUPPORTS_UBSAN ON)
   else()
@@ -18,183 +18,183 @@ macro(myproject_supports_sanitizers)
   endif()
 endmacro()
 
-macro(myproject_setup_options)
-  option(myproject_ENABLE_HARDENING "Enable hardening" ON)
-  option(myproject_ENABLE_COVERAGE "Enable coverage reporting" OFF)
+macro(parallel_fft_setup_options)
+  option(parallel_fft_ENABLE_HARDENING "Enable hardening" ON)
+  option(parallel_fft_ENABLE_COVERAGE "Enable coverage reporting" OFF)
   cmake_dependent_option(
-    myproject_ENABLE_GLOBAL_HARDENING
+    parallel_fft_ENABLE_GLOBAL_HARDENING
     "Attempt to push hardening options to built dependencies"
     ON
-    myproject_ENABLE_HARDENING
+    parallel_fft_ENABLE_HARDENING
     OFF)
 
-  myproject_supports_sanitizers()
+  parallel_fft_supports_sanitizers()
 
-  if(NOT PROJECT_IS_TOP_LEVEL OR myproject_PACKAGING_MAINTAINER_MODE)
-    option(myproject_ENABLE_IPO "Enable IPO/LTO" OFF)
-    option(myproject_WARNINGS_AS_ERRORS "Treat Warnings As Errors" OFF)
-    option(myproject_ENABLE_USER_LINKER "Enable user-selected linker" OFF)
-    option(myproject_ENABLE_SANITIZER_ADDRESS "Enable address sanitizer" OFF)
-    option(myproject_ENABLE_SANITIZER_LEAK "Enable leak sanitizer" OFF)
-    option(myproject_ENABLE_SANITIZER_UNDEFINED "Enable undefined sanitizer" OFF)
-    option(myproject_ENABLE_SANITIZER_THREAD "Enable thread sanitizer" OFF)
-    option(myproject_ENABLE_SANITIZER_MEMORY "Enable memory sanitizer" OFF)
-    option(myproject_ENABLE_UNITY_BUILD "Enable unity builds" OFF)
-    option(myproject_ENABLE_CLANG_TIDY "Enable clang-tidy" OFF)
-    option(myproject_ENABLE_CPPCHECK "Enable cpp-check analysis" OFF)
-    option(myproject_ENABLE_PCH "Enable precompiled headers" OFF)
-    option(myproject_ENABLE_CACHE "Enable ccache" OFF)
+  if(NOT PROJECT_IS_TOP_LEVEL OR parallel_fft_PACKAGING_MAINTAINER_MODE)
+    option(parallel_fft_ENABLE_IPO "Enable IPO/LTO" OFF)
+    option(parallel_fft_WARNINGS_AS_ERRORS "Treat Warnings As Errors" OFF)
+    option(parallel_fft_ENABLE_USER_LINKER "Enable user-selected linker" OFF)
+    option(parallel_fft_ENABLE_SANITIZER_ADDRESS "Enable address sanitizer" OFF)
+    option(parallel_fft_ENABLE_SANITIZER_LEAK "Enable leak sanitizer" OFF)
+    option(parallel_fft_ENABLE_SANITIZER_UNDEFINED "Enable undefined sanitizer" OFF)
+    option(parallel_fft_ENABLE_SANITIZER_THREAD "Enable thread sanitizer" OFF)
+    option(parallel_fft_ENABLE_SANITIZER_MEMORY "Enable memory sanitizer" OFF)
+    option(parallel_fft_ENABLE_UNITY_BUILD "Enable unity builds" OFF)
+    option(parallel_fft_ENABLE_CLANG_TIDY "Enable clang-tidy" OFF)
+    option(parallel_fft_ENABLE_CPPCHECK "Enable cpp-check analysis" OFF)
+    option(parallel_fft_ENABLE_PCH "Enable precompiled headers" OFF)
+    option(parallel_fft_ENABLE_CACHE "Enable ccache" OFF)
   else()
-    option(myproject_ENABLE_IPO "Enable IPO/LTO" ON)
-    option(myproject_WARNINGS_AS_ERRORS "Treat Warnings As Errors" ON)
-    option(myproject_ENABLE_USER_LINKER "Enable user-selected linker" OFF)
-    option(myproject_ENABLE_SANITIZER_ADDRESS "Enable address sanitizer" ${SUPPORTS_ASAN})
-    option(myproject_ENABLE_SANITIZER_LEAK "Enable leak sanitizer" OFF)
-    option(myproject_ENABLE_SANITIZER_UNDEFINED "Enable undefined sanitizer" ${SUPPORTS_UBSAN})
-    option(myproject_ENABLE_SANITIZER_THREAD "Enable thread sanitizer" OFF)
-    option(myproject_ENABLE_SANITIZER_MEMORY "Enable memory sanitizer" OFF)
-    option(myproject_ENABLE_UNITY_BUILD "Enable unity builds" OFF)
-    option(myproject_ENABLE_CLANG_TIDY "Enable clang-tidy" ON)
-    option(myproject_ENABLE_CPPCHECK "Enable cpp-check analysis" ON)
-    option(myproject_ENABLE_PCH "Enable precompiled headers" OFF)
-    option(myproject_ENABLE_CACHE "Enable ccache" ON)
+    option(parallel_fft_ENABLE_IPO "Enable IPO/LTO" ON)
+    option(parallel_fft_WARNINGS_AS_ERRORS "Treat Warnings As Errors" ON)
+    option(parallel_fft_ENABLE_USER_LINKER "Enable user-selected linker" OFF)
+    option(parallel_fft_ENABLE_SANITIZER_ADDRESS "Enable address sanitizer" ${SUPPORTS_ASAN})
+    option(parallel_fft_ENABLE_SANITIZER_LEAK "Enable leak sanitizer" OFF)
+    option(parallel_fft_ENABLE_SANITIZER_UNDEFINED "Enable undefined sanitizer" ${SUPPORTS_UBSAN})
+    option(parallel_fft_ENABLE_SANITIZER_THREAD "Enable thread sanitizer" OFF)
+    option(parallel_fft_ENABLE_SANITIZER_MEMORY "Enable memory sanitizer" OFF)
+    option(parallel_fft_ENABLE_UNITY_BUILD "Enable unity builds" OFF)
+    option(parallel_fft_ENABLE_CLANG_TIDY "Enable clang-tidy" ON)
+    option(parallel_fft_ENABLE_CPPCHECK "Enable cpp-check analysis" ON)
+    option(parallel_fft_ENABLE_PCH "Enable precompiled headers" OFF)
+    option(parallel_fft_ENABLE_CACHE "Enable ccache" ON)
   endif()
 
   if(NOT PROJECT_IS_TOP_LEVEL)
     mark_as_advanced(
-      myproject_ENABLE_IPO
-      myproject_WARNINGS_AS_ERRORS
-      myproject_ENABLE_USER_LINKER
-      myproject_ENABLE_SANITIZER_ADDRESS
-      myproject_ENABLE_SANITIZER_LEAK
-      myproject_ENABLE_SANITIZER_UNDEFINED
-      myproject_ENABLE_SANITIZER_THREAD
-      myproject_ENABLE_SANITIZER_MEMORY
-      myproject_ENABLE_UNITY_BUILD
-      myproject_ENABLE_CLANG_TIDY
-      myproject_ENABLE_CPPCHECK
-      myproject_ENABLE_COVERAGE
-      myproject_ENABLE_PCH
-      myproject_ENABLE_CACHE)
+      parallel_fft_ENABLE_IPO
+      parallel_fft_WARNINGS_AS_ERRORS
+      parallel_fft_ENABLE_USER_LINKER
+      parallel_fft_ENABLE_SANITIZER_ADDRESS
+      parallel_fft_ENABLE_SANITIZER_LEAK
+      parallel_fft_ENABLE_SANITIZER_UNDEFINED
+      parallel_fft_ENABLE_SANITIZER_THREAD
+      parallel_fft_ENABLE_SANITIZER_MEMORY
+      parallel_fft_ENABLE_UNITY_BUILD
+      parallel_fft_ENABLE_CLANG_TIDY
+      parallel_fft_ENABLE_CPPCHECK
+      parallel_fft_ENABLE_COVERAGE
+      parallel_fft_ENABLE_PCH
+      parallel_fft_ENABLE_CACHE)
   endif()
 
-  myproject_check_libfuzzer_support(LIBFUZZER_SUPPORTED)
-  if(LIBFUZZER_SUPPORTED AND (myproject_ENABLE_SANITIZER_ADDRESS OR myproject_ENABLE_SANITIZER_THREAD OR myproject_ENABLE_SANITIZER_UNDEFINED))
+  parallel_fft_check_libfuzzer_support(LIBFUZZER_SUPPORTED)
+  if(LIBFUZZER_SUPPORTED AND (parallel_fft_ENABLE_SANITIZER_ADDRESS OR parallel_fft_ENABLE_SANITIZER_THREAD OR parallel_fft_ENABLE_SANITIZER_UNDEFINED))
     set(DEFAULT_FUZZER ON)
   else()
     set(DEFAULT_FUZZER OFF)
   endif()
 
-  option(myproject_BUILD_FUZZ_TESTS "Enable fuzz testing executable" ${DEFAULT_FUZZER})
+  option(parallel_fft_BUILD_FUZZ_TESTS "Enable fuzz testing executable" ${DEFAULT_FUZZER})
 
 endmacro()
 
-macro(myproject_global_options)
-  if(myproject_ENABLE_IPO)
+macro(parallel_fft_global_options)
+  if(parallel_fft_ENABLE_IPO)
     include(cmake/InterproceduralOptimization.cmake)
-    myproject_enable_ipo()
+    parallel_fft_enable_ipo()
   endif()
 
-  myproject_supports_sanitizers()
+  parallel_fft_supports_sanitizers()
 
-  if(myproject_ENABLE_HARDENING AND myproject_ENABLE_GLOBAL_HARDENING)
+  if(parallel_fft_ENABLE_HARDENING AND parallel_fft_ENABLE_GLOBAL_HARDENING)
     include(cmake/Hardening.cmake)
     if(NOT SUPPORTS_UBSAN 
-       OR myproject_ENABLE_SANITIZER_UNDEFINED
-       OR myproject_ENABLE_SANITIZER_ADDRESS
-       OR myproject_ENABLE_SANITIZER_THREAD
-       OR myproject_ENABLE_SANITIZER_LEAK)
+       OR parallel_fft_ENABLE_SANITIZER_UNDEFINED
+       OR parallel_fft_ENABLE_SANITIZER_ADDRESS
+       OR parallel_fft_ENABLE_SANITIZER_THREAD
+       OR parallel_fft_ENABLE_SANITIZER_LEAK)
       set(ENABLE_UBSAN_MINIMAL_RUNTIME FALSE)
     else()
       set(ENABLE_UBSAN_MINIMAL_RUNTIME TRUE)
     endif()
-    message("${myproject_ENABLE_HARDENING} ${ENABLE_UBSAN_MINIMAL_RUNTIME} ${myproject_ENABLE_SANITIZER_UNDEFINED}")
-    myproject_enable_hardening(myproject_options ON ${ENABLE_UBSAN_MINIMAL_RUNTIME})
+    message("${parallel_fft_ENABLE_HARDENING} ${ENABLE_UBSAN_MINIMAL_RUNTIME} ${parallel_fft_ENABLE_SANITIZER_UNDEFINED}")
+    parallel_fft_enable_hardening(parallel_fft_options ON ${ENABLE_UBSAN_MINIMAL_RUNTIME})
   endif()
 endmacro()
 
-macro(myproject_local_options)
+macro(parallel_fft_local_options)
   if(PROJECT_IS_TOP_LEVEL)
     include(cmake/StandardProjectSettings.cmake)
   endif()
 
-  add_library(myproject_warnings INTERFACE)
-  add_library(myproject_options INTERFACE)
+  add_library(parallel_fft_warnings INTERFACE)
+  add_library(parallel_fft_options INTERFACE)
 
   include(cmake/CompilerWarnings.cmake)
-  myproject_set_project_warnings(
-    myproject_warnings
-    ${myproject_WARNINGS_AS_ERRORS}
+  parallel_fft_set_project_warnings(
+    parallel_fft_warnings
+    ${parallel_fft_WARNINGS_AS_ERRORS}
     ""
     ""
     ""
     "")
 
-  if(myproject_ENABLE_USER_LINKER)
+  if(parallel_fft_ENABLE_USER_LINKER)
     include(cmake/Linker.cmake)
-    myproject_configure_linker(myproject_options)
+    parallel_fft_configure_linker(parallel_fft_options)
   endif()
 
   include(cmake/Sanitizers.cmake)
-  myproject_enable_sanitizers(
-    myproject_options
-    ${myproject_ENABLE_SANITIZER_ADDRESS}
-    ${myproject_ENABLE_SANITIZER_LEAK}
-    ${myproject_ENABLE_SANITIZER_UNDEFINED}
-    ${myproject_ENABLE_SANITIZER_THREAD}
-    ${myproject_ENABLE_SANITIZER_MEMORY})
+  parallel_fft_enable_sanitizers(
+    parallel_fft_options
+    ${parallel_fft_ENABLE_SANITIZER_ADDRESS}
+    ${parallel_fft_ENABLE_SANITIZER_LEAK}
+    ${parallel_fft_ENABLE_SANITIZER_UNDEFINED}
+    ${parallel_fft_ENABLE_SANITIZER_THREAD}
+    ${parallel_fft_ENABLE_SANITIZER_MEMORY})
 
-  set_target_properties(myproject_options PROPERTIES UNITY_BUILD ${myproject_ENABLE_UNITY_BUILD})
+  set_target_properties(parallel_fft_options PROPERTIES UNITY_BUILD ${parallel_fft_ENABLE_UNITY_BUILD})
 
-  if(myproject_ENABLE_PCH)
+  if(parallel_fft_ENABLE_PCH)
     target_precompile_headers(
-      myproject_options
+      parallel_fft_options
       INTERFACE
       <vector>
       <string>
       <utility>)
   endif()
 
-  if(myproject_ENABLE_CACHE)
+  if(parallel_fft_ENABLE_CACHE)
     include(cmake/Cache.cmake)
-    myproject_enable_cache()
+    parallel_fft_enable_cache()
   endif()
 
   include(cmake/StaticAnalyzers.cmake)
-  if(myproject_ENABLE_CLANG_TIDY)
-    myproject_enable_clang_tidy(myproject_options ${myproject_WARNINGS_AS_ERRORS})
+  if(parallel_fft_ENABLE_CLANG_TIDY)
+    parallel_fft_enable_clang_tidy(parallel_fft_options ${parallel_fft_WARNINGS_AS_ERRORS})
   endif()
 
-  if(myproject_ENABLE_CPPCHECK)
-    myproject_enable_cppcheck(${myproject_WARNINGS_AS_ERRORS} "" # override cppcheck options
+  if(parallel_fft_ENABLE_CPPCHECK)
+    parallel_fft_enable_cppcheck(${parallel_fft_WARNINGS_AS_ERRORS} "" # override cppcheck options
     )
   endif()
 
-  if(myproject_ENABLE_COVERAGE)
+  if(parallel_fft_ENABLE_COVERAGE)
     include(cmake/Tests.cmake)
-    myproject_enable_coverage(myproject_options)
+    parallel_fft_enable_coverage(parallel_fft_options)
   endif()
 
-  if(myproject_WARNINGS_AS_ERRORS)
+  if(parallel_fft_WARNINGS_AS_ERRORS)
     check_cxx_compiler_flag("-Wl,--fatal-warnings" LINKER_FATAL_WARNINGS)
     if(LINKER_FATAL_WARNINGS)
       # This is not working consistently, so disabling for now
-      # target_link_options(myproject_options INTERFACE -Wl,--fatal-warnings)
+      # target_link_options(parallel_fft_options INTERFACE -Wl,--fatal-warnings)
     endif()
   endif()
 
-  if(myproject_ENABLE_HARDENING AND NOT myproject_ENABLE_GLOBAL_HARDENING)
+  if(parallel_fft_ENABLE_HARDENING AND NOT parallel_fft_ENABLE_GLOBAL_HARDENING)
     include(cmake/Hardening.cmake)
     if(NOT SUPPORTS_UBSAN 
-       OR myproject_ENABLE_SANITIZER_UNDEFINED
-       OR myproject_ENABLE_SANITIZER_ADDRESS
-       OR myproject_ENABLE_SANITIZER_THREAD
-       OR myproject_ENABLE_SANITIZER_LEAK)
+       OR parallel_fft_ENABLE_SANITIZER_UNDEFINED
+       OR parallel_fft_ENABLE_SANITIZER_ADDRESS
+       OR parallel_fft_ENABLE_SANITIZER_THREAD
+       OR parallel_fft_ENABLE_SANITIZER_LEAK)
       set(ENABLE_UBSAN_MINIMAL_RUNTIME FALSE)
     else()
       set(ENABLE_UBSAN_MINIMAL_RUNTIME TRUE)
     endif()
-    myproject_enable_hardening(myproject_options OFF ${ENABLE_UBSAN_MINIMAL_RUNTIME})
+    parallel_fft_enable_hardening(parallel_fft_options OFF ${ENABLE_UBSAN_MINIMAL_RUNTIME})
   endif()
 
 endmacro()
